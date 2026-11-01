@@ -40,9 +40,9 @@ svg.i { width: 1em; height: 1em; display: block; }
 /* vlnky v pozadí: bílý základ, přes něj se pomalu valí modrá a růžová */
 .has-wave { position: relative; overflow: hidden; isolation: isolate; }
 .wave { position: absolute; left: 0; right: 0; bottom: 0; height: 220px; z-index: -1; pointer-events: none;
-  -webkit-mask-image: linear-gradient(180deg, #000 45%, transparent 100%), linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent);
+  -webkit-mask-image: linear-gradient(180deg, #000 45%, transparent 100%), linear-gradient(90deg, transparent, rgba(0,0,0,.35) 14%, #000 34%, #000 66%, rgba(0,0,0,.35) 86%, transparent);
   -webkit-mask-composite: source-in;
-  mask-image: linear-gradient(180deg, #000 45%, transparent 100%), linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent);
+  mask-image: linear-gradient(180deg, #000 45%, transparent 100%), linear-gradient(90deg, transparent, rgba(0,0,0,.35) 14%, #000 34%, #000 66%, rgba(0,0,0,.35) 86%, transparent);
   mask-composite: intersect; }
 .wave svg { position: absolute; left: 0; bottom: 0; display: block; animation: waveX ease-in-out infinite alternate; }
 .wave path { transform-box: fill-box; transform-origin: 50% 100%; animation: bob ease-in-out infinite alternate; }
