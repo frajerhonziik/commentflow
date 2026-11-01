@@ -44,15 +44,18 @@ svg.i { width: 1em; height: 1em; display: block; }
   -webkit-mask-composite: source-in;
   mask-image: linear-gradient(180deg, #000 45%, transparent 100%), linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent);
   mask-composite: intersect; }
-.wave svg { position: absolute; left: 0; bottom: 0; width: 200%; display: block; animation: waveX linear infinite; }
-.wave .w1 { height: 220px; animation-duration: 34s; }
-.wave .w3 { height: 190px; animation-duration: 21s; opacity: .75; }
-.wave .w1 path { filter: drop-shadow(0 -8px 14px rgba(90,160,255,.55)); }
-.wave .w2 path { filter: drop-shadow(0 -8px 14px rgba(255,111,184,.55)); }
-.wave .w3 path { filter: drop-shadow(0 -6px 12px rgba(201,164,255,.5)); }
-.wave .w2 { height: 160px; animation-duration: 14s; animation-direction: reverse; }
-.wave.w-r .w1, .wave.w-r .w3 { animation-direction: reverse; } .wave.w-r .w2 { animation-direction: normal; }
+.wave svg { position: absolute; left: 0; bottom: 0; display: block; animation: waveX ease-in-out infinite alternate; }
+.wave path { transform-box: fill-box; transform-origin: 50% 100%; animation: bob ease-in-out infinite alternate; }
+/* různá délka vlny (šířka svg = 2 periody), různá rychlost a houpání, nic nejede lineárně */
+.wave .w1 { width: 400%; height: 220px; animation-duration: 23s; }
+.wave .w1 path { animation-duration: 7s; filter: drop-shadow(0 -8px 14px rgba(90,160,255,.55)); }
+.wave .w3 { width: 300%; height: 190px; animation-duration: 17s; animation-delay: -6s; opacity: .75; }
+.wave .w3 path { animation-duration: 5.5s; animation-delay: -2s; filter: drop-shadow(0 -6px 12px rgba(201,164,255,.5)); }
+.wave .w2 { width: 240%; height: 160px; animation-duration: 13s; animation-delay: -9s; }
+.wave .w2 path { animation-duration: 4.3s; animation-delay: -1s; filter: drop-shadow(0 -8px 14px rgba(255,111,184,.55)); }
+.wave.w-r svg { animation-direction: alternate-reverse; }
 @keyframes waveX { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes bob { from { transform: scaleY(.82); } to { transform: scaleY(1.12); } }
 
 
 /* jemná barevná záře podél okrajů okna */
@@ -212,7 +215,7 @@ footer { padding: 32px 0 48px; color: var(--muted); font-size: 14px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .dots i.on::after { animation: none; transform: scaleX(1); }
-  .wave svg { animation: none; }
+  .wave svg, .wave path { animation: none; }
   * { transition-duration: .01ms !important; }
 }
 </style>
@@ -224,7 +227,7 @@ footer { padding: 32px 0 48px; color: var(--muted); font-size: 14px; }
   <symbol id="tg" viewBox="0 0 24 24"><path fill="currentColor" d="M21.9 4.3 18.7 19.4c-.2 1-.9 1.3-1.7.8l-4.8-3.5-2.3 2.2c-.3.3-.5.5-1 .5l.3-4.9 8.9-8c.4-.3-.1-.5-.6-.2L6.5 13.2l-4.7-1.5c-1-.3-1-1 .2-1.5L20.5 3c.9-.3 1.6.2 1.4 1.3Z"/></symbol>
 </svg>
 
-<div class="top has-wave"><div class="wave" aria-hidden="true"><svg class="w1" viewBox="0 0 3000 220" preserveAspectRatio="none"><path fill="url(#gw1)" d="M0 70C375 20 375 20 750 70S1125 120 1500 70C1875 20 1875 20 2250 70S2625 120 3000 70V220H0Z"/></svg><svg class="w3" viewBox="0 0 3000 190" preserveAspectRatio="none"><path fill="url(#gw3)" d="M0 75C125 47 125 47 250 75S375 103 500 75C625 47 625 47 750 75S875 103 1000 75C1125 47 1125 47 1250 75S1375 103 1500 75C1625 47 1625 47 1750 75S1875 103 2000 75C2125 47 2125 47 2250 75S2375 103 2500 75C2625 47 2625 47 2750 75S2875 103 3000 75V190H0Z"/></svg><svg class="w2" viewBox="0 0 3000 160" preserveAspectRatio="none"><path fill="url(#gw2)" d="M0 62C188 28 188 28 375 62S562 96 750 62C938 28 938 28 1125 62S1312 96 1500 62C1688 28 1688 28 1875 62S2062 96 2250 62C2438 28 2438 28 2625 62S2812 96 3000 62V160H0Z"/></svg></div>
+<div class="top has-wave"><div class="wave" aria-hidden="true"><svg class="w1" viewBox="0 0 3000 220" preserveAspectRatio="none"><path fill="url(#gw1)" d="M0 70C375 20 375 20 750 70S1125 120 1500 70C1875 20 1875 20 2250 70S2625 120 3000 70V220H0Z"/></svg><svg class="w3" viewBox="0 0 3000 190" preserveAspectRatio="none"><path fill="url(#gw3)" d="M0 75C375 41 375 41 750 75S1125 109 1500 75C1875 41 1875 41 2250 75S2625 109 3000 75V190H0Z"/></svg><svg class="w2" viewBox="0 0 3000 160" preserveAspectRatio="none"><path fill="url(#gw2)" d="M0 62C375 24 375 24 750 62S1125 100 1500 62C1875 24 1875 24 2250 62S2625 100 3000 62V160H0Z"/></svg></div>
 <div class="wrap">
   <header>
     <a class="logo" href="#"><svg aria-hidden="true"><use href="#heart" fill="currentColor"/></svg>CommentFlow</a>
@@ -275,7 +278,7 @@ footer { padding: 32px 0 48px; color: var(--muted); font-size: 14px; }
 </div>
 </div>
 
-<section class="red has-wave"><div class="wave w-r" aria-hidden="true"><svg class="w1" viewBox="0 0 3000 220" preserveAspectRatio="none"><path fill="url(#gw1)" d="M0 70C375 20 375 20 750 70S1125 120 1500 70C1875 20 1875 20 2250 70S2625 120 3000 70V220H0Z"/></svg><svg class="w3" viewBox="0 0 3000 190" preserveAspectRatio="none"><path fill="url(#gw3)" d="M0 75C125 47 125 47 250 75S375 103 500 75C625 47 625 47 750 75S875 103 1000 75C1125 47 1125 47 1250 75S1375 103 1500 75C1625 47 1625 47 1750 75S1875 103 2000 75C2125 47 2125 47 2250 75S2375 103 2500 75C2625 47 2625 47 2750 75S2875 103 3000 75V190H0Z"/></svg><svg class="w2" viewBox="0 0 3000 160" preserveAspectRatio="none"><path fill="url(#gw2)" d="M0 62C188 28 188 28 375 62S562 96 750 62C938 28 938 28 1125 62S1312 96 1500 62C1688 28 1688 28 1875 62S2062 96 2250 62C2438 28 2438 28 2625 62S2812 96 3000 62V160H0Z"/></svg></div>
+<section class="red has-wave"><div class="wave w-r" aria-hidden="true"><svg class="w1" viewBox="0 0 3000 220" preserveAspectRatio="none"><path fill="url(#gw1)" d="M0 70C375 20 375 20 750 70S1125 120 1500 70C1875 20 1875 20 2250 70S2625 120 3000 70V220H0Z"/></svg><svg class="w3" viewBox="0 0 3000 190" preserveAspectRatio="none"><path fill="url(#gw3)" d="M0 75C375 41 375 41 750 75S1125 109 1500 75C1875 41 1875 41 2250 75S2625 109 3000 75V190H0Z"/></svg><svg class="w2" viewBox="0 0 3000 160" preserveAspectRatio="none"><path fill="url(#gw2)" d="M0 62C375 24 375 24 750 62S1125 100 1500 62C1875 24 1875 24 2250 62S2625 100 3000 62V160H0Z"/></svg></div>
   <div class="wrap">
     <h2 data-i18n="h2a">1 478 komentářů za 12 týdnů. <span>Lidi na ně odpověděli 270krát.</span></h2>
     <p class="sub" data-i18n="suba">Skutečné komentáře z našeho testovacího účtu v trading nice. Lajky na nich přibývají ještě týdny po napsání, takže každý komentář pracuje dlouho.</p>
@@ -321,7 +324,7 @@ footer { padding: 32px 0 48px; color: var(--muted); font-size: 14px; }
   </section>
 </div>
 
-<section class="final has-wave"><div class="wave" aria-hidden="true"><svg class="w1" viewBox="0 0 3000 220" preserveAspectRatio="none"><path fill="url(#gw1)" d="M0 70C375 20 375 20 750 70S1125 120 1500 70C1875 20 1875 20 2250 70S2625 120 3000 70V220H0Z"/></svg><svg class="w3" viewBox="0 0 3000 190" preserveAspectRatio="none"><path fill="url(#gw3)" d="M0 75C125 47 125 47 250 75S375 103 500 75C625 47 625 47 750 75S875 103 1000 75C1125 47 1125 47 1250 75S1375 103 1500 75C1625 47 1625 47 1750 75S1875 103 2000 75C2125 47 2125 47 2250 75S2375 103 2500 75C2625 47 2625 47 2750 75S2875 103 3000 75V190H0Z"/></svg><svg class="w2" viewBox="0 0 3000 160" preserveAspectRatio="none"><path fill="url(#gw2)" d="M0 62C188 28 188 28 375 62S562 96 750 62C938 28 938 28 1125 62S1312 96 1500 62C1688 28 1688 28 1875 62S2062 96 2250 62C2438 28 2438 28 2625 62S2812 96 3000 62V160H0Z"/></svg></div>
+<section class="final has-wave"><div class="wave" aria-hidden="true"><svg class="w1" viewBox="0 0 3000 220" preserveAspectRatio="none"><path fill="url(#gw1)" d="M0 70C375 20 375 20 750 70S1125 120 1500 70C1875 20 1875 20 2250 70S2625 120 3000 70V220H0Z"/></svg><svg class="w3" viewBox="0 0 3000 190" preserveAspectRatio="none"><path fill="url(#gw3)" d="M0 75C375 41 375 41 750 75S1125 109 1500 75C1875 41 1875 41 2250 75S2625 109 3000 75V190H0Z"/></svg><svg class="w2" viewBox="0 0 3000 160" preserveAspectRatio="none"><path fill="url(#gw2)" d="M0 62C375 24 375 24 750 62S1125 100 1500 62C1875 24 1875 24 2250 62S2625 100 3000 62V160H0Z"/></svg></div>
   <div class="wrap">
     <h2 data-i18n="h2e">Zkus to první měsíc</h2>
     <p class="sub" data-i18n="sube">Napiš nám svůj Instagram a o čem tvoříš. Do 24 hodin se ozveme.</p>
