@@ -40,9 +40,14 @@ svg.i { width: 1em; height: 1em; display: block; }
 /* vlnky v pozadí: bílý základ, přes něj se pomalu valí modrá a růžová */
 .has-wave { position: relative; overflow: hidden; isolation: isolate; }
 .wave { position: absolute; left: 0; right: 0; bottom: 0; height: 220px; z-index: -1; pointer-events: none;
-  -webkit-mask-image: linear-gradient(180deg, #000 45%, transparent 100%); mask-image: linear-gradient(180deg, #000 45%, transparent 100%); }
+  -webkit-mask-image: linear-gradient(180deg, #000 45%, transparent 100%), linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(180deg, #000 45%, transparent 100%), linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent);
+  mask-composite: intersect; }
 .wave svg { position: absolute; left: 0; bottom: 0; width: 200%; display: block; animation: waveX linear infinite; }
 .wave .w1 { height: 220px; animation-duration: 26s; }
+.wave .w1 path { filter: drop-shadow(0 -8px 14px rgba(90,160,255,.55)); }
+.wave .w2 path { filter: drop-shadow(0 -8px 14px rgba(255,111,184,.55)); }
 .wave .w2 { height: 170px; animation-duration: 18s; animation-direction: reverse; }
 .wave.w-r .w1 { animation-direction: reverse; } .wave.w-r .w2 { animation-direction: normal; }
 @keyframes waveX { from { transform: translateX(0); } to { transform: translateX(-50%); } }
