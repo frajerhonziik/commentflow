@@ -24,8 +24,8 @@
   --ease: cubic-bezier(.16, 1, .3, 1);
 }
 * { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; caret-color: var(--heart); scrollbar-color: #A6A9B6 var(--paper); }
-body { margin: 0; background: var(--paper); color: var(--ink); font: 400 18px/1.55 var(--font); }
+html { background: var(--paper); -webkit-text-size-adjust: 100%; caret-color: var(--heart); scrollbar-color: #A6A9B6 var(--paper); }
+body { margin: 0; background: transparent; color: var(--ink); font: 400 18px/1.55 var(--font); }
 a { color: inherit; }
 ::selection { background: var(--heart); color: #fff; }
 :focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; border-radius: 8px; }
@@ -39,13 +39,28 @@ svg.i { width: 1em; height: 1em; display: block; }
 
 /* vlnky v pozadí: bílý základ, přes něj se pomalu valí modrá a růžová */
 .has-wave { position: relative; overflow: hidden; isolation: isolate; }
-.wave { position: absolute; left: 0; right: 0; bottom: -2px; height: 220px; z-index: -1; pointer-events: none; }
+.wave { position: absolute; left: 0; right: 0; bottom: 0; height: 220px; z-index: -1; pointer-events: none;
+  -webkit-mask-image: linear-gradient(180deg, #000 45%, transparent 100%); mask-image: linear-gradient(180deg, #000 45%, transparent 100%); }
 .wave svg { position: absolute; left: 0; bottom: 0; width: 200%; display: block; animation: waveX linear infinite; }
 .wave .w1 { height: 220px; animation-duration: 26s; }
 .wave .w2 { height: 170px; animation-duration: 18s; animation-direction: reverse; }
-.wave .w3 { height: 110px; animation-duration: 32s; }
 .wave.w-r .w1 { animation-direction: reverse; } .wave.w-r .w2 { animation-direction: normal; }
 @keyframes waveX { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+
+/* jemná barevná záře podél okrajů okna */
+body::before {
+  content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(35,64,255,.16), rgba(35,64,255,0) 14%),
+    linear-gradient(270deg, rgba(255,111,184,.2), rgba(255,111,184,0) 14%),
+    linear-gradient(180deg, rgba(184,139,255,.12), rgba(184,139,255,0) 12%);
+}
+@media (max-width: 600px) {
+  body::before { background:
+    linear-gradient(90deg, rgba(35,64,255,.14), rgba(35,64,255,0) 10%),
+    linear-gradient(270deg, rgba(255,111,184,.18), rgba(255,111,184,0) 10%); }
+}
 
 /* lišta */
 header { display: flex; justify-content: space-between; align-items: center; padding: 22px 0; }
@@ -202,7 +217,7 @@ footer { padding: 32px 0 48px; color: var(--muted); font-size: 14px; }
   <symbol id="tg" viewBox="0 0 24 24"><path fill="currentColor" d="M21.9 4.3 18.7 19.4c-.2 1-.9 1.3-1.7.8l-4.8-3.5-2.3 2.2c-.3.3-.5.5-1 .5l.3-4.9 8.9-8c.4-.3-.1-.5-.6-.2L6.5 13.2l-4.7-1.5c-1-.3-1-1 .2-1.5L20.5 3c.9-.3 1.6.2 1.4 1.3Z"/></symbol>
 </svg>
 
-<div class="top has-wave"><div class="wave" aria-hidden="true"><svg class="w1" viewBox="0 0 3000 220" preserveAspectRatio="none"><path fill="url(#gw1)" d="M0 70C250 25 500 25 750 70S1250 115 1500 70C1750 25 2000 25 2250 70S2750 115 3000 70V220H0Z"/></svg><svg class="w2" viewBox="0 0 3000 170" preserveAspectRatio="none"><path fill="url(#gw2)" d="M0 60C250 20 500 20 750 60S1250 100 1500 60C1750 20 2000 20 2250 60S2750 100 3000 60V170H0Z"/></svg><svg class="w3" viewBox="0 0 3000 110" preserveAspectRatio="none"><path fill="#FFFFFF" d="M0 45C250 10 500 10 750 45S1250 80 1500 45C1750 10 2000 10 2250 45S2750 80 3000 45V110H0Z"/></svg></div>
+<div class="top has-wave"><div class="wave" aria-hidden="true"><svg class="w1" viewBox="0 0 3000 220" preserveAspectRatio="none"><path fill="url(#gw1)" d="M0 70C250 25 500 25 750 70S1250 115 1500 70C1750 25 2000 25 2250 70S2750 115 3000 70V220H0Z"/></svg><svg class="w2" viewBox="0 0 3000 170" preserveAspectRatio="none"><path fill="url(#gw2)" d="M0 60C250 20 500 20 750 60S1250 100 1500 60C1750 20 2000 20 2250 60S2750 100 3000 60V170H0Z"/></svg></div>
 <div class="wrap">
   <header>
     <a class="logo" href="#"><svg aria-hidden="true"><use href="#heart" fill="currentColor"/></svg>CommentFlow</a>
@@ -253,7 +268,7 @@ footer { padding: 32px 0 48px; color: var(--muted); font-size: 14px; }
 </div>
 </div>
 
-<section class="red has-wave"><div class="wave w-r" aria-hidden="true"><svg class="w1" viewBox="0 0 3000 220" preserveAspectRatio="none"><path fill="url(#gw1)" d="M0 70C250 25 500 25 750 70S1250 115 1500 70C1750 25 2000 25 2250 70S2750 115 3000 70V220H0Z"/></svg><svg class="w2" viewBox="0 0 3000 170" preserveAspectRatio="none"><path fill="url(#gw2)" d="M0 60C250 20 500 20 750 60S1250 100 1500 60C1750 20 2000 20 2250 60S2750 100 3000 60V170H0Z"/></svg><svg class="w3" viewBox="0 0 3000 110" preserveAspectRatio="none"><path fill="#FFFFFF" d="M0 45C250 10 500 10 750 45S1250 80 1500 45C1750 10 2000 10 2250 45S2750 80 3000 45V110H0Z"/></svg></div>
+<section class="red has-wave"><div class="wave w-r" aria-hidden="true"><svg class="w1" viewBox="0 0 3000 220" preserveAspectRatio="none"><path fill="url(#gw1)" d="M0 70C250 25 500 25 750 70S1250 115 1500 70C1750 25 2000 25 2250 70S2750 115 3000 70V220H0Z"/></svg><svg class="w2" viewBox="0 0 3000 170" preserveAspectRatio="none"><path fill="url(#gw2)" d="M0 60C250 20 500 20 750 60S1250 100 1500 60C1750 20 2000 20 2250 60S2750 100 3000 60V170H0Z"/></svg></div>
   <div class="wrap">
     <h2 data-i18n="h2a">1 478 komentářů za 12 týdnů. <span>Lidi na ně odpověděli 270krát.</span></h2>
     <p class="sub" data-i18n="suba">Skutečné komentáře z našeho testovacího účtu v trading nice. Lajky na nich přibývají ještě týdny po napsání, takže každý komentář pracuje dlouho.</p>
@@ -299,7 +314,7 @@ footer { padding: 32px 0 48px; color: var(--muted); font-size: 14px; }
   </section>
 </div>
 
-<section class="final has-wave"><div class="wave" aria-hidden="true"><svg class="w1" viewBox="0 0 3000 220" preserveAspectRatio="none"><path fill="url(#gw1)" d="M0 70C250 25 500 25 750 70S1250 115 1500 70C1750 25 2000 25 2250 70S2750 115 3000 70V220H0Z"/></svg><svg class="w2" viewBox="0 0 3000 170" preserveAspectRatio="none"><path fill="url(#gw2)" d="M0 60C250 20 500 20 750 60S1250 100 1500 60C1750 20 2000 20 2250 60S2750 100 3000 60V170H0Z"/></svg><svg class="w3" viewBox="0 0 3000 110" preserveAspectRatio="none"><path fill="#FFFFFF" d="M0 45C250 10 500 10 750 45S1250 80 1500 45C1750 10 2000 10 2250 45S2750 80 3000 45V110H0Z"/></svg></div>
+<section class="final has-wave"><div class="wave" aria-hidden="true"><svg class="w1" viewBox="0 0 3000 220" preserveAspectRatio="none"><path fill="url(#gw1)" d="M0 70C250 25 500 25 750 70S1250 115 1500 70C1750 25 2000 25 2250 70S2750 115 3000 70V220H0Z"/></svg><svg class="w2" viewBox="0 0 3000 170" preserveAspectRatio="none"><path fill="url(#gw2)" d="M0 60C250 20 500 20 750 60S1250 100 1500 60C1750 20 2000 20 2250 60S2750 100 3000 60V170H0Z"/></svg></div>
   <div class="wrap">
     <h2 data-i18n="h2e">Zkus to první měsíc</h2>
     <p class="sub" data-i18n="sube">Napiš nám svůj Instagram a o čem tvoříš. Do 24 hodin se ozveme.</p>
